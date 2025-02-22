@@ -8,17 +8,6 @@
     <script src="public/js/bootstrap.bundle.min.js"></script>  
 </head>
 <body>
-    <?php
-    function isPrime($number){
-        if ($number<=1) return false;
-        $i = $number - 1;
-        while ($i > 1){
-            if ($number % $i ==0) return false;
-            $i--;
-            }
-        return true;
-    }
-    ?>
     @php ($j=5)
     <h1>Michael Gameel</h1>
     <div class="card m-4 col-sm-2">
