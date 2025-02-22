@@ -2,7 +2,6 @@
 @section('title', 'welcome')
 @section('content')
     @php ($j=5)
-    <h1>Michael Gameel</h1>
             <div class="card m-4">
                 <div class="card-header">Prime Numbers</div>
                 <div class="card-body">

@@ -1,10 +1,8 @@
 @extends('layouts.master')
 @section('title', 'welcome')
 @section('content')
-    @php ($j=5)
-    <h1>Michael Gameel</h1>
-    <div class="card m-4 col-sm-2">
-        <div class="card-header">Multiplication Table 5</div>
+    <div class="card m-4 col-sm-5">
+        <div class="card-header">Multiplication Table 5 + {{$msg}}</div>
         <div class="card-body">
             <table>
                 @foreach (range(1,10) as $i)
@@ -13,5 +11,4 @@
             </table>
         </div>
     </div>
-</body>
 @endsection
