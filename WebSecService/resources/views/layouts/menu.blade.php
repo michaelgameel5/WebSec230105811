@@ -22,7 +22,13 @@
                 <a class="nav-link" href="./multable">Multiplication Table</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./test">Test</a>
+                <a class="nav-link" href="./bill">Bill</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./trans">Transcript</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./products">Products</a>
             </li>
         </ul>
     </div>
