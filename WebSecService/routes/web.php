@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Web\ProductsController;
+use App\Http\Controllers\Controller;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,8 +38,6 @@ Route::get('/bill', function () {
 
     return view('bill', compact("bill"));
 });
-
-
    Route::get('/trans', function () {
     $courses = [
         (object)["credit_hours" => 3, "course_code" => "CS101", "grade" => 85],
@@ -62,11 +62,8 @@ Route::get('/bill', function () {
 
     return view('trans', compact('courses'));
 });
-
-
-
-Route::get('/products', function () {
-    $products = [
+Route::get('/items', function () {
+    $items = [
         (object)[
             'name' => 'Web Security Book',
             'image' => '/public/images/websecbook.png',
@@ -87,6 +84,9 @@ Route::get('/products', function () {
         ]
     ];
 
-    return view('products', compact('products'));
+    return view('items', compact('items'));
 });
+Route::get('/products', [ProductsController::class, 'list'
+])->name('products_list');
+
 

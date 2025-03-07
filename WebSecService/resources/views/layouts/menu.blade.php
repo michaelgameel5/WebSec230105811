@@ -13,13 +13,13 @@
                 <a class="nav-link" href="./">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./even">Even Numbers</a>
+                <a class="nav-link" href="./even">Even</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./prime">Prime Numbers</a>
+                <a class="nav-link" href="./prime">Prime</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./multable">Multiplication Table</a>
+                <a class="nav-link" href="./multable">Multiplication</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./bill">Bill</a>
@@ -28,7 +28,10 @@
                 <a class="nav-link" href="./trans">Transcript</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./products">Products</a>
+                <a class="nav-link" href="./items">Items</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./products/list">Products</a>
             </li>
         </ul>
     </div>
