@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Web\ProductsController;
+use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Controller;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('train.welcome');
 });
 
 // Route::get('/multable/{number?}', function ($number = null) {
@@ -16,13 +17,13 @@ Route::get('/', function () {
 Route::get('/multable', function (Request $request) {
     $j = $request->number;
     $msg = $request->msg;
-    return view('multable', compact('j', 'msg')); //multable.blade.php
+    return view('train.multable', compact('j', 'msg')); //multable.blade.php
    });
 Route::get('/even', function () {
-    return view('even'); //even.blade.php
+    return view('train.even'); //even.blade.php
    });
 Route::get('/prime', function () {
-    return view('prime'); //prime.blade.php
+    return view('train.prime'); //prime.blade.php
    });
 
 Route::get('/bill', function () {
@@ -36,7 +37,7 @@ Route::get('/bill', function () {
         (object)["quantatiy" => 6, "unit" => "Unit", "name" => "Hohh", "price" => 190]
     ];
 
-    return view('bill', compact("bill"));
+    return view('train.bill', compact("bill"));
 });
    Route::get('/trans', function () {
     $courses = [
@@ -60,7 +61,7 @@ Route::get('/bill', function () {
         $course->gpa_letter = gpaletter($course->grade);
     }
 
-    return view('trans', compact('courses'));
+    return view('train.trans', compact('courses'));
 });
 Route::get('/items', function () {
     $items = [
@@ -84,7 +85,7 @@ Route::get('/items', function () {
         ]
     ];
 
-    return view('items', compact('items'));
+    return view('train.items', compact('items'));
 });
 Route::get('/products', [ProductsController::class, 
     'list'])->name('products_list');
@@ -97,5 +98,12 @@ Route::get('products/delete/{product}', [ProductsController::class,
 Route::get('/products/search', [ProductsController::class,
     'search'])->name('products_search');
 
+
+
+Route::get('register', [UsersController::class, 'register'])->name('register');
+Route::post('register', [UsersController::class, 'doRegister'])->name('do_register');
+Route::get('login', [UsersController::class, 'login'])->name('login');
+Route::post('login', [UsersController::class, 'doLogin'])->name('do_login');
+Route::get('logout', [UsersController::class, 'doLogout'])->name('do_logout');
 
 

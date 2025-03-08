@@ -31,7 +31,15 @@
                 <a class="nav-link" href="./items">Items</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./products/list">Products</a>
+                <a class="nav-link" href="./products">Products</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('login')}}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('register')}}">Register</a>
             </li>
         </ul>
     </div>
