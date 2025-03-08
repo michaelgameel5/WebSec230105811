@@ -3,11 +3,11 @@
 @section('content')
     <form action="{{route('do_register')}}" method="post">
         {{ csrf_field() }}
-        @if(request()->error)
+        @foreach($errors->all() as $error)
             <div class="alert alert-danger">
-                <strong>Error!</strong> {{request()->error}}
+                <strong>Error!</strong> {{$error}}
             </div>
-        @endif
+        @endforeach
         <div class="form-group mb-2">
             <label for="code" class="form-label">Name:</label>
             <input type="text" class="form-control" placeholder="name" name="name" required>

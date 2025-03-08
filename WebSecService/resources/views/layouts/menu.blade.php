@@ -34,13 +34,13 @@
                 <a class="nav-link" href="./products">Products</a>
             </li>
         </ul>
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('login')}}">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('register')}}">Register</a>
-            </li>
+        <ul class="navbar-nav">
+            @auth
+                <li class="nav-item"><a class="nav-link">{{auth()->user()->name}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('do_logout')}}">Logout</a></li>
+            @else
+                <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
+            @endauth
         </ul>
     </div>
 </nav>
