@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 Route::get('/', function () {
     return view('train.welcome');
-});
+})->name('home');
 
 // Route::get('/multable/{number?}', function ($number = null) {
 //     $j = $number??1;
@@ -18,13 +18,13 @@ Route::get('/multable', function (Request $request) {
     $j = $request->number;
     $msg = $request->msg;
     return view('train.multable', compact('j', 'msg')); //multable.blade.php
-   });
+   })->name('multable');
 Route::get('/even', function () {
     return view('train.even'); //even.blade.php
-   });
+   })->name('even');
 Route::get('/prime', function () {
     return view('train.prime'); //prime.blade.php
-   });
+   })->name('prime');
 
 Route::get('/bill', function () {
     $bill = (object)[];
@@ -38,7 +38,8 @@ Route::get('/bill', function () {
     ];
 
     return view('train.bill', compact("bill"));
-});
+})->name('bill');
+
    Route::get('/trans', function () {
     $courses = [
         (object)["credit_hours" => 3, "course_code" => "CS101", "grade" => 85],
@@ -62,7 +63,7 @@ Route::get('/bill', function () {
     }
 
     return view('train.trans', compact('courses'));
-});
+})->name('trans');
 Route::get('/items', function () {
     $items = [
         (object)[
@@ -86,7 +87,9 @@ Route::get('/items', function () {
     ];
 
     return view('train.items', compact('items'));
-});
+})->name('items');
+
+
 Route::get('/products', [ProductsController::class, 
     'list'])->name('products_list');
 Route::get('products/edit/{product?}', [ProductsController::class,
@@ -97,7 +100,6 @@ Route::get('products/delete/{product}', [ProductsController::class,
     'delete'])->name('products_delete');
 Route::get('/products/search', [ProductsController::class,
     'search'])->name('products_search');
-
 
 
 Route::get('register', [UsersController::class, 'register'])->name('register');

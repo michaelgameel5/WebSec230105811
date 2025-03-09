@@ -10,28 +10,28 @@
     <div class="container-fluid">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="./">Home</a>
+                <a class="nav-link" href="{{ route('home') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./even">Even</a>
+                <a class="nav-link" href="{{ route('even') }}">Even</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./prime">Prime</a>
+                <a class="nav-link" href="{{ route('prime') }}">Prime</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./multable">Multiplication</a>
+                <a class="nav-link" href="{{ route('multable') }}">Multiplication</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./bill">Bill</a>
+                <a class="nav-link" href="{{ route('bill') }}">Bill</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./trans">Transcript</a>
+                <a class="nav-link" href="{{ route('trans') }}">Transcript</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./items">Items</a>
+                <a class="nav-link" href="{{ route('items') }}">Items</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./products">Products</a>
+                <a class="nav-link" href="{{ route('products_list') }}">Products</a>
             </li>
         </ul>
         <ul class="navbar-nav">

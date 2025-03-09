@@ -21,6 +21,9 @@
         <div class="form-group mb-2">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
+        <div class="form-group mb-2">
+            <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
+        </div>
     </form>
 @endsection
 

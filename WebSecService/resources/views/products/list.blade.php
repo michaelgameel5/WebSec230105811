@@ -6,8 +6,10 @@
             <h1>Products</h1>
         </div>
         <div class="col col-2">
+            @auth
             <a href="{{route('products_edit')}}"
             class="btn btn-success form-control">Add Product</a>
+            @endauth
         </div>
     </div>
     <form action="{{ route('products_search') }}" method="GET">
@@ -49,12 +51,16 @@
             <h3>{{$product->name}}</h3>
         </div>
         <div class="col col-2">
+            @auth
             <a href="{{route('products_edit', $product->id)}}"
             class="btn btn-success form-control">Edit</a>
+            @endauth
         </div>
         <div class="col col-2">
+            @auth
             <a href="{{route('products_delete', $product->id)}}"
             class="btn btn-danger form-control">Delete</a>
+            @endauth
         </div>
     </div>
 
