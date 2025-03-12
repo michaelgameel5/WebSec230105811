@@ -121,12 +121,20 @@ Route::post('register', [UsersController::class, 'doRegister'])->name('do_regist
 Route::get('login', [UsersController::class, 'login'])->name('login');
 Route::post('login', [UsersController::class, 'doLogin'])->name('do_login');
 Route::get('logout', [UsersController::class, 'doLogout'])->name('do_logout');
-Route::get('/user/profile', [UsersController::class, 'profile'])->name('user.profile');
+Route::get('/user/profile', [UsersController::class, 'profile'])->name('users_profile');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', [UsersController::class, 'index'])->name('users_index');
+    Route::get('/users/edit/{user}', [UsersController::class, 'edit'])->name('users_edit');
+    Route::get('/users/create', [UsersController::class, 'create'])->name('users_create');
+    Route::post('/users', [UsersController::class, 'store'])->name('users_store');
+    Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users_destroy');
+    Route::put('/users/{user}', [UsersController::class, 'update'])->name('users_update');
+});
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
-    Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
+Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
 });
 
 
