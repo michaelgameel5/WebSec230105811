@@ -34,15 +34,17 @@
                 <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('gpacalc') }}">GPAcalculator</a>
+                <a class="nav-link" href="{{ route('gpacalc') }}">GPA Calculator</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('users_index') }}">Users</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('questions.list') }}">MCQ Exam</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('products_list') }}">Products</a>
             </li>
-            
         </ul>
         <ul class="navbar-nav">
             @auth

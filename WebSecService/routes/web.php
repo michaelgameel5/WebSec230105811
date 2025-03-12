@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Web\ExamController;
 
 Route::get('/', function () {
     return view('train.welcome');
@@ -26,7 +27,6 @@ Route::get('/even', function () {
 Route::get('/prime', function () {
     return view('train.prime'); //prime.blade.php
    })->name('prime');
-
 Route::get('/bill', function () {
     $bill = (object)[];
     $bill->supermarket = "Carrefour";
@@ -133,10 +133,19 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
-Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
 });
 
+Route::get('/questions', [ExamController::class, 'list'])->name('questions.list');
+Route::get('/questions/create', [ExamController::class, 'create'])->name('questions.create');
+Route::post('/questions', [ExamController::class, 'store'])->name('questions.store');
+Route::get('/questions/{question}/edit', [ExamController::class, 'edit'])->name('questions.edit');
+Route::put('/questions/{question}', [ExamController::class, 'update'])->name('questions.update');
+Route::delete('/questions/{question}', [ExamController::class, 'destroy'])->name('questions.destroy');
+Route::get('/questions/start', [ExamController::class, 'start'])->name('questions.start');
+Route::post('/questions/submit', [ExamController::class, 'submit'])->name('questions.submit');
+Route::get('/questions/result', [ExamController::class, 'result'])->name('questions.result');
 
 
 
