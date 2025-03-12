@@ -31,6 +31,12 @@
                 <a class="nav-link" href="{{ route('items') }}">Items</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('calculator') }}">Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('gpacalc') }}">GPACalculator</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('products_list') }}">Products</a>
             </li>
         </ul>

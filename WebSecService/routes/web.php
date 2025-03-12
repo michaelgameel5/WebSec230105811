@@ -40,8 +40,7 @@ Route::get('/bill', function () {
 
     return view('train.bill', compact("bill"));
 })->name('bill');
-
-   Route::get('/trans', function () {
+Route::get('/trans', function () {
     $courses = [
         (object)["credit_hours" => 3, "course_code" => "CS101", "grade" => 85],
         (object)["credit_hours" => 4, "course_code" => "MATH102", "grade" => 73],
@@ -89,6 +88,20 @@ Route::get('/items', function () {
 
     return view('train.items', compact('items'));
 })->name('items');
+Route::get('/calculator', function () {
+    return view('train.calculator');
+})->name('calculator');
+Route::get('/gpacalc', function () {
+    $courses = [
+        ['code' => 'CS101', 'title' => 'Introduction to Programming', 'credits' => 3],
+        ['code' => 'CS102', 'title' => 'Data Structures', 'credits' => 4],
+        ['code' => 'CS103', 'title' => 'Database Systems', 'credits' => 3],
+        ['code' => 'CS104', 'title' => 'Operating Systems', 'credits' => 3],
+        ['code' => 'CS105', 'title' => 'Computer Networks', 'credits' => 3]
+    ];
+    return view('train.gpacalc', compact('courses'));
+})->name('gpacalc');
+
 
 
 Route::get('/products', [ProductsController::class, 
