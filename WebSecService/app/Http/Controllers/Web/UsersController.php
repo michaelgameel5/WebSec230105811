@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\UsersController;
 use App\Models\User;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Validation\Rules\Password;
@@ -64,6 +65,12 @@ class UsersController extends Controller {
 
     return redirect('/');
     }
+
+    public function profile(){
+        $user = auth()->user();
+        return view('users.profile', compact('user'));
+    }
+    
 }
     
     

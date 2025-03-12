@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\UsersController;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\ChangePasswordController;
 
 Route::get('/', function () {
     return view('train.welcome');
@@ -107,5 +108,14 @@ Route::post('register', [UsersController::class, 'doRegister'])->name('do_regist
 Route::get('login', [UsersController::class, 'login'])->name('login');
 Route::post('login', [UsersController::class, 'doLogin'])->name('do_login');
 Route::get('logout', [UsersController::class, 'doLogout'])->name('do_logout');
+Route::get('/user/profile', [UsersController::class, 'profile'])->name('user.profile');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
+});
+
+
 
 

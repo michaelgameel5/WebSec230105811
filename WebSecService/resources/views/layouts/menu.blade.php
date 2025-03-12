@@ -36,7 +36,8 @@
         </ul>
         <ul class="navbar-nav">
             @auth
-                <li class="nav-item"><a class="nav-link">{{auth()->user()->name}}</a></li>
+                <a href="{{ route('password.change') }}" class="btn btn-warning">Change Password</a>
+                <li class="nav-item"><a class="nav-link" href="{{ route('user.profile') }}">{{ auth()->user()->name }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('do_logout')}}">Logout</a></li>
             @else
                 <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
