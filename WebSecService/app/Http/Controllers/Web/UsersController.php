@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 
 class UsersController extends Controller {

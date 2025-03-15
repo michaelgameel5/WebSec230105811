@@ -1,5 +1,6 @@
  <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -7,6 +8,13 @@ use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Web\ExamController;
+
+// Auth::routes(['verify' => true]);
+
+// // Example of a route protected by email verification:
+// Route::get('/home', function () {
+//     return view('home');
+// })->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/', function () {
     return view('train.welcome');
