@@ -9,10 +9,14 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\Web\Artisan;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 class UsersController extends Controller {
     use ValidatesRequests;
+
 
     public function register(Request $request) {
         return view('users.register');
@@ -67,12 +71,29 @@ class UsersController extends Controller {
     return redirect('/');
     }
 
-    public function profile(){
-        $user = auth()->user();
-        return view('users.profile', compact('user'));
-    }
-
+    public function profile(Request $request, User $user = null) {
+        $user = $user ?? auth()->user();
     
+        // Authorization Check
+        if (auth()->id() !== $user?->id && !auth()->user()->hasPermissionTo('show_users')) {
+            abort(401);
+        }
+    
+        // Fetch Direct Permissions
+        $directPermissions = $user->getDirectPermissions();
+    
+        // Fetch Role-Based Permissions
+        $rolePermissions = $user->getPermissionsViaRoles();
+    
+        // Combine and Remove Duplicates
+        $permissions = $directPermissions->merge($rolePermissions)->unique('id');
+    
+        return view('users.profile', compact('user', 'permissions'));
+    }
+    
+            
+        
+           
 
     public function index(Request $request)
     {
@@ -110,9 +131,41 @@ class UsersController extends Controller {
         return redirect()->route('users_index')->with('success', 'User created successfully.');
     }
 
-    public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
+    public function edit(Request $request, User $user = null) {
+   
+        $user = $user??auth()->user();
+        if(auth()->id()!=$user?->id) {
+            if(!auth()->user()->hasPermissionTo('edit_users')) abort(401);
+        }
+        
+        $roles = [];
+        foreach
+        (Role::all() as $role) {
+               $role->taken = ($user->hasRole($role->name));
+               $roles[] = $role;
+           }
+
+           $permissions = [];
+           $directPermissionsIds = $user->getDirectPermissions()->pluck('id')->toArray();           foreach(Permission::all() as $permission) {
+               $permission->taken = in_array($permission->id, $directPermissionsIds);
+               $permissions[] = $permission;
+           }
+        //    $permissions = Permission::all(); // Fetch all permissions
+        return view('users.edit', compact('user', 'roles', 'permissions'));
+     }
+
+     public function save(Request $request, User $user) {
+        if (auth()->user()->hasPermissionTo('edit_users')) {
+            $user->syncRoles($request->roles);
+            
+            // Fetch the permission names for the given IDs
+            $permissionNames = Permission::whereIn('id', $request->permissions)
+                ->pluck('name')->toArray();
+                
+            $user->syncPermissions($permissionNames);
+        }
+    
+        return redirect(route('profile', ['user' => $user]));
     }
 
     public function update(Request $request, User $user)

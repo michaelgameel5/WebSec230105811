@@ -162,12 +162,4 @@ Route::post('/questions/submit', [ExamController::class, 'submit'])->name('quest
 Route::get('/questions/result', [ExamController::class, 'result'])->name('questions.result');
 
 
-use App\Http\Controllers\Web\BooksController;
-
-Route::get('/books', [BooksController::class, 'index'])->name('books.index');
-Route::get('/books/create', [BooksController::class, 'create'])->name('books.create');
-Route::post('/books', [BooksController::class, 'store'])->name('books.store');
-
-
-
 

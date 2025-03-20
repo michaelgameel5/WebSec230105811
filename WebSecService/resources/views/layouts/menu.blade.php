@@ -45,7 +45,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('products_list') }}">Products</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('books.index') }}">Books</a>
+            </li>
         </ul>
+        
         <ul class="navbar-nav">
             @auth
                 <a href="{{ route('password.change') }}" class="btn btn-warning">Change Password</a>
