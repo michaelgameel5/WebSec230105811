@@ -38,7 +38,10 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td class="text-center">
+                            @can('edit_users')
                             <a href="{{ route('users_edit', $user) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                            @endcan
+                            @can('delete_users')
                             <form action="{{ route('users_destroy', $user) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
@@ -46,6 +49,7 @@
                                     <i class="bi bi-trash"></i> Delete
                                 </button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                 @empty
@@ -64,7 +68,9 @@
 
     {{-- Add User Button --}}
     <div class="text-center mt-3">
+        @can('add_users')
         <a href="{{ route('users_create') }}" class="btn btn-success"><i class="bi bi-person-plus"></i> Add New User</a>
+        @endcan
     </div>
 </div>
 @endsection

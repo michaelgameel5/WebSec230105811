@@ -18,7 +18,7 @@ class TasksController extends Controller
     
 
         // If the user is an admin, show all tasks
-        if (auth()->user()->hasRole('Admin')) {
+        if (auth()->check() && auth()->user()->hasRole('Admin')) {
             $tasks = $query->with('user')->get();
         } else {
             $tasks = $query->with('user')->where('user_id', auth()->id())->get();

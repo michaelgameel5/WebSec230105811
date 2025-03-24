@@ -168,7 +168,7 @@ Route::get('/books/create', [BooksController::class, 'create'])->name('books.cre
 Route::post('/books', [BooksController::class, 'store'])->name('books.store');
 
 use App\Http\Controllers\Web\TasksController;
- Route::get('/tasks', [TasksController::class, 'index'])->name('tasks_index'); 
+ Route::get('/tasks', [TasksController::class, 'index'])->name('tasks_index')->middleware('auth'); 
  Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks_create'); 
  Route::post('/tasks', [TasksController::class, 'store'])->name('tasks_store'); 
  Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks_edit'); 
