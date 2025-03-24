@@ -6,6 +6,8 @@ use DB;
 use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Purchase;
+use App\Models\User;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 
@@ -14,7 +16,7 @@ class ProductsController extends Controller{
 
     public function __construct()
     {
-    $this->middleware('auth:web')->except('list');   // the "web" part is the default here, but we also wrote it.
+    $this->middleware('auth:web');   // the "web" part is the default here, but we also wrote it.
     }
 
 
@@ -92,5 +94,39 @@ class ProductsController extends Controller{
     
             return view('products.list', compact('products'));
         }
+
+
+        public function buy($id) {
+            $product = Product::findOrFail($id);
+            $user = auth()->user(); // Get the authenticated user
+        
+            // Check if the product is in stock
+            if ($product->stock <= 0) {
+                return redirect()->back()->with('error', 'This product is out of stock!');
+            }
+        
+            // Check if the user has enough credit
+            if ($user->credit < $product->price) {
+                return redirect()->back()->with('error', 'Insufficient credit to purchase this product.');
+            }
+        
+            // Deduct the price from user credit
+            $user->credit -= $product->price;
+            $user->save();
+        
+            // Reduce product stock
+            $product->stock -= 1;
+            $product->save();
+        
+            // Log the purchase (optional)
+            Purchase::create([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'price' => $product->price,
+            ]);
+        
+            return redirect()->back()->with('success', 'Purchase successful! Your credit has been deducted.');
+        }
+        
     }    
    

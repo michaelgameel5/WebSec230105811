@@ -1,16 +1,40 @@
 @extends('layouts.master')
 @section('title', 'Products List')
+
 @section('content')
+    
+    
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    
     <div class="row">
         <div class="col col-10">
             <h1>Products</h1>
         </div>
         <div class="col col-2">
-            @can('add_product')
-            <a href="{{route('products_edit')}}" class="btn btn-success form-control">Add Product</a>
+            @can('add_products')
+                <a href="{{ route('products_edit') }}" class="btn btn-success form-control">Add Product</a> 
             @endcan
         </div>
+        @can('manage_customers')
+            <div class="col col-2">
+                <a href="{{ route('customers.index') }}" class="btn btn-info form-control">Customers</a>
+            </div>
+            <br>
+        @endcan
     </div>
+
     <form action="{{ route('products_search') }}" method="GET">
         <div class="row">
             <div class="col col-sm-2">
@@ -44,22 +68,28 @@
             </div>
         </div>
     </form><br>
-@foreach($products as $product)
+    
+    @foreach($products as $product)
     <div class="row mb-2">
-        <div class="col-8">
+        <div class="col-6">
             <h3>{{$product->name}}</h3>
         </div>
         <div class="col col-2">
-            @can('edit_product')
-            <a href="{{route('products_edit', $product->id)}}"
-            class="btn btn-success form-control">Edit</a>
+            @can('edit_products')
+                <a href="{{route('products_edit', $product->id)}}" class="btn btn-success form-control">Edit</a>
             @endcan
         </div>
         <div class="col col-2">
-            @can('delete_product')
-            <a href="{{route('products_delete', $product->id)}}"
-            class="btn btn-danger form-control">Delete</a>
+            @can('delete_products')
+                <a href="{{route('products_delete', $product->id)}}" class="btn btn-danger form-control">Delete</a>
             @endcan
+        </div>
+        <div class="col col-2">
+            @if($product->stock > 0 && auth()->user()->credit >= $product->price)
+                <a href="{{ route('products_buy', $product->id) }}" class="btn btn-primary form-control">Buy</a>
+            @else
+                <button class="btn btn-secondary form-control" disabled>Out of Stock / Low Credit</button>
+            @endif
         </div>
     </div>
 
@@ -67,9 +97,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col col-sm-12 col-lg-4">
-                    <!-- <img src="{{asset("images/$product->photo")}}" -->
-                    <img src="{{ asset($product->photo) }}"
-                    class="img-thumbnail" alt="{{$product->name}}">
+                    <img src="{{ asset($product->photo) }}" class="img-thumbnail" alt="{{$product->name}}">
                 </div>
                 <div class="col col-sm-12 col-lg-8 mt-3">
                     <h3>{{$product->name}}</h3>
@@ -84,5 +112,7 @@
             </div>
         </div>
     </div>
-@endforeach 
+    @endforeach
+
+
 @endsection

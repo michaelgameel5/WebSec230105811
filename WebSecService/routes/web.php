@@ -122,6 +122,8 @@ Route::get('products/delete/{product}', [ProductsController::class,
     'delete'])->name('products_delete');
 Route::get('/products/search', [ProductsController::class,
     'search'])->name('products_search');
+Route::get('/products/buy/{id}', [ProductsController::class, 'buy'])->name('products_buy');
+
 
 
 Route::get('register', [UsersController::class, 'register'])->name('register');
@@ -139,6 +141,12 @@ Route::middleware(['auth'])->group(function () {
 Route::get('profile/{user?}', [UsersController::class, 'profile'])->name('profile');
 Route::get('/users/edit/{user?}', [UsersController::class, 'edit'])->name('users_edit');
 Route::put('users/save/{user}', [UsersController::class, 'save'])->name('users_save');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/customers', [UsersController::class, 'listCustomers'])->name('customers.index');
+    Route::post('/customers/{user}/add-credit', [UsersController::class, 'addCredit'])->name('customers.addCredit');
+});
+
 
 
 
@@ -168,6 +176,7 @@ Route::get('/books/create', [BooksController::class, 'create'])->name('books.cre
 Route::post('/books', [BooksController::class, 'store'])->name('books.store');
 
 use App\Http\Controllers\Web\TasksController;
+
  Route::get('/tasks', [TasksController::class, 'index'])->name('tasks_index')->middleware('auth'); 
  Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks_create'); 
  Route::post('/tasks', [TasksController::class, 'store'])->name('tasks_store'); 

@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -19,12 +18,16 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password', 'credit'];
 
+    public function purchases()
+    {
+        return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id')
+        ->withPivot('created_at') // Remove 'quantity' if it doesn't exist
+        ->withTimestamps();
+    }
+
+    
     /**
      * The attributes that should be hidden for serialization.
      *

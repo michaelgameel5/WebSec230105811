@@ -15,6 +15,4 @@ class Product extends Model {
         'description',
         'photo'
     ];
-
-
-} 
+}
