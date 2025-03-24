@@ -129,7 +129,6 @@ Route::post('register', [UsersController::class, 'doRegister'])->name('do_regist
 Route::get('login', [UsersController::class, 'login'])->name('login');
 Route::post('login', [UsersController::class, 'doLogin'])->name('do_login');
 Route::get('logout', [UsersController::class, 'doLogout'])->name('do_logout');
-Route::get('/user/profile', [UsersController::class, 'profile'])->name('users_profile');
 Route::middleware(['auth'])->group(function () {
     Route::get('/users', [UsersController::class, 'index'])->name('users_index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('users_create');
@@ -168,6 +167,13 @@ Route::get('/books', [BooksController::class, 'index'])->name('books.index');
 Route::get('/books/create', [BooksController::class, 'create'])->name('books.create');
 Route::post('/books', [BooksController::class, 'store'])->name('books.store');
 
+use App\Http\Controllers\Web\TasksController;
+ Route::get('/tasks', [TasksController::class, 'index'])->name('tasks_index'); 
+ Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks_create'); 
+ Route::post('/tasks', [TasksController::class, 'store'])->name('tasks_store'); 
+ Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks_edit'); 
+ Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks_update'); 
+ Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks_destroy');
 
 
 

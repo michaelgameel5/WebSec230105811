@@ -48,12 +48,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('books.index') }}">Books</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('tasks_index') }}">Tasks</a>
+            </li>
         </ul>
         
         <ul class="navbar-nav">
             @auth
                 <a href="{{ route('password.change') }}" class="btn btn-warning">Change Password</a>
-                <li class="nav-item"><a class="nav-link" href="{{ route('users_profile') }}">{{ auth()->user()->name }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('profile') }}">{{ auth()->user()->name }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('do_logout')}}">Logout</a></li>
             @else
                 <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
