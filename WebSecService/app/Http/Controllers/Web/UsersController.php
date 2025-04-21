@@ -15,6 +15,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationEmail;
+use Carbon\Carbon;
 
 
 class UsersController extends Controller {
@@ -58,6 +59,16 @@ class UsersController extends Controller {
         Mail::to($user->email)->send(new VerificationEmail($link, $user->name));
 
         return redirect("/");
+    }
+
+    public function verify(Request $request) {
+        $decryptedData = json_decode(Crypt::decryptString($request->token), true);
+        $user = User::find($decryptedData['id']);
+        if(!$user) abort(401);
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+        
+        return view('users.verified', compact('user'));
     }
 
     public function login(Request $request) {
