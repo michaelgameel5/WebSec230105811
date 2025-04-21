@@ -12,6 +12,9 @@ use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Web\Artisan;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificationEmail;
 
 
 class UsersController extends Controller {
@@ -48,6 +51,12 @@ class UsersController extends Controller {
         $user->password = bcrypt($request->password);  
         $user->save();
 
+
+        $title = "Verification Link";
+        $token = Crypt::encryptString(json_encode(['id' => $user->id, 'email' => $user->email]));
+        $link = route("verify", ['token' => $token]);
+        Mail::to($user->email)->send(new VerificationEmail($link, $user->name));
+
         return redirect("/");
     }
 
@@ -57,6 +66,12 @@ class UsersController extends Controller {
 
     public function doLogin(Request $request) {
 
+        $user = User::where('email', $request->email)->first();
+
+        if(!$user->email_verified_at)
+            return redirect()->back()->withInput($request->input())
+                ->withErrors('Your email is not verified.');
+
         if(!Auth::attempt(['email' => $request->email, 'password' => $request->password]))
             return redirect()->back()->withInput($request->input())->withErrors('Invalid login information.');
             $user = User::where('email', $request->email)->first();
@@ -64,6 +79,7 @@ class UsersController extends Controller {
         
     return redirect('/');
     }
+
     public function doLogout(Request $request) {
 
         Auth::logout();

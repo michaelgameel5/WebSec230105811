@@ -175,5 +175,6 @@ use App\Http\Controllers\Web\TasksController;
  Route::put('/tasks/{task}', [TasksController::class, 'update'])->name('tasks_update'); 
  Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks_destroy');
 
+ Route::get('verify', [UsersController::class, 'verify'])->name('verify');
 
 
