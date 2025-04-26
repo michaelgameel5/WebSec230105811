@@ -197,3 +197,5 @@ Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name(
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('do_reset_password');
 
+Route::get('/auth/google', [UsersController::class, 'redirectToGoogle'])->name('login_with_google');
+Route::get('/auth/google/callback', [UsersController::class, 'handleGoogleCallback']);
