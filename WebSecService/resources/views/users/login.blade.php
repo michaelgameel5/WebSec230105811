@@ -24,6 +24,9 @@
         <div class="form-group mb-2">
             <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
         </div>
+        <div class="form-group mb-2">
+            <a href="{{ route('forgot_password') }}" class="btn btn-link">Forgot Password?</a>
+        </div>
     </form>
 @endsection
 

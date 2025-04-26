@@ -9,6 +9,8 @@ use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Web\ExamController;
 use App\Mail\VerificationEmail;
+use App\Http\Controllers\Auth\AuthController;
+
 
 // Auth::routes(['verify' => true]);
 
@@ -189,4 +191,9 @@ Route::get('/test-email', function () {
     }
 });
 
+
+Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('forgot_password');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('send_reset_link');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('do_reset_password');
 
