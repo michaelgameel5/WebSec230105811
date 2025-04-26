@@ -1,4 +1,4 @@
- <?php
+<?php
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\ProductsController;
 use App\Http\Controllers\Web\UsersController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Web\ExamController;
+use App\Mail\VerificationEmail;
 
 // Auth::routes(['verify' => true]);
 
@@ -176,5 +177,16 @@ use App\Http\Controllers\Web\TasksController;
  Route::delete('/tasks/{task}', [TasksController::class, 'destroy'])->name('tasks_destroy');
 
  Route::get('verify', [UsersController::class, 'verify'])->name('verify');
+
+Route::get('/test-email', function () {
+    try {
+        Mail::raw('This is a test email.', function ($message) {
+            $message->to('test@example.com')->subject('Test Email');
+        });
+        return 'Test email sent successfully!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 
 

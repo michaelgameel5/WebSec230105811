@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Register Page')
+@section('title', 'Login Page')
 @section('content')
     <form action="{{route('do_login')}}" method="post">
         {{ csrf_field() }}

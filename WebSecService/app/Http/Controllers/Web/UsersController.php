@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationEmail;
 use Carbon\Carbon;
-
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class UsersController extends Controller {
     use ValidatesRequests;
@@ -62,13 +62,17 @@ class UsersController extends Controller {
     }
 
     public function verify(Request $request) {
-        $decryptedData = json_decode(Crypt::decryptString($request->token), true);
-        $user = User::find($decryptedData['id']);
-        if(!$user) abort(401);
-        $user->email_verified_at = Carbon::now();
-        $user->save();
-        
-        return view('users.verified', compact('user'));
+        try {
+            $decryptedData = json_decode(Crypt::decryptString($request->token), true);
+            $user = User::find($decryptedData['id']);
+            if(!$user) abort(401);
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+            
+            return view('users.verified', compact('user'));
+        } catch (DecryptException $e) {
+            return redirect('/')->withErrors(['message' => 'Invalid or expired verification link.']);
+        }
     }
 
     public function login(Request $request) {
@@ -78,6 +82,10 @@ class UsersController extends Controller {
     public function doLogin(Request $request) {
 
         $user = User::where('email', $request->email)->first();
+
+        if(!$user)
+            return redirect()->back()->withInput($request->input())
+                ->withErrors('No email found.');
 
         if(!$user->email_verified_at)
             return redirect()->back()->withInput($request->input())
@@ -217,5 +225,4 @@ class UsersController extends Controller {
     }
     
 }
-    
-    
+
