@@ -6,7 +6,7 @@
             <h1>Products</h1>
         </div>
         <div class="col col-2">
-            @can('add_product')
+            @can('add_products')
             <a href="{{route('products_edit')}}" class="btn btn-success form-control">Add Product</a>
             @endcan
         </div>
@@ -44,19 +44,28 @@
             </div>
         </div>
     </form><br>
+
+@if(!empty(request()->keywords))
+    <div class='card mt-2'>
+        <div class='card-body'>
+            view search results: <span>{{!!request()->keywords!!}}</span>
+        </div>
+    </div>
+@endif
+
 @foreach($products as $product)
     <div class="row mb-2">
         <div class="col-8">
             <h3>{{$product->name}}</h3>
         </div>
         <div class="col col-2">
-            @can('edit_product')
+            @can('edit_products')
             <a href="{{route('products_edit', $product->id)}}"
             class="btn btn-success form-control">Edit</a>
             @endcan
         </div>
         <div class="col col-2">
-            @can('delete_product')
+            @can('delete_products')
             <a href="{{route('products_delete', $product->id)}}"
             class="btn btn-danger form-control">Delete</a>
             @endcan
