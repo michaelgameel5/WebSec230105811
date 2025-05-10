@@ -199,3 +199,14 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 Route::get('/auth/google', [UsersController::class, 'redirectToGoogle'])->name('login_with_google');
 Route::get('/auth/google/callback', [UsersController::class, 'handleGoogleCallback']);
+
+
+Route::get('/cryptography', function (Request $request) {
+    $data = $request->data??"Welcome to Cryptography";
+    $action = $request->action??"Encrypt";
+    $result = $request->result??"";
+    $status = "Failed";
+    return view('train.cryptography', compact('data', 'result', 'action', 'status'));
+   })->name('cryptography');
+
+

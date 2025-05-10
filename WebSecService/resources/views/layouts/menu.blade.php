@@ -51,6 +51,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('tasks_index') }}">Tasks</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('cryptography')}}">Cryptography</a>
+            </li>
+               
         </ul>
         
         <ul class="navbar-nav">
