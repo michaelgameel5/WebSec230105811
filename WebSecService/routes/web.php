@@ -202,11 +202,25 @@ Route::get('/auth/google/callback', [UsersController::class, 'handleGoogleCallba
 
 
 Route::get('/cryptography', function (Request $request) {
-    $data = $request->data??"Welcome to Cryptography";
-    $action = $request->action??"Encrypt";
-    $result = $request->result??"";
+    $data = $request->data ?? "Welcome to Cryptography";
+    $action = $request->action ?? "Encrypt";
+    $result = $request->result ?? "";
     $status = "Failed";
+
+    $key = 'thisisasecretkey'; // Must be 16 bytes for AES-128
+    $cipher = 'aes-128-ecb';
+
+    if ($action == "Encrypt") {
+        $temp = openssl_encrypt($data, $cipher, $key, OPENSSL_RAW_DATA);
+
+        if ($temp) {
+            $status = 'Encrypted Successfully';
+            $result = base64_encode($temp);
+        }
+    }
+
     return view('train.cryptography', compact('data', 'result', 'action', 'status'));
-   })->name('cryptography');
+})->name('cryptography');
+
 
 
