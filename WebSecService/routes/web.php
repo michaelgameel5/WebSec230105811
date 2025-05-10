@@ -207,7 +207,7 @@ Route::get('/cryptography', function (Request $request) {
     $result = $request->result ?? "";
     $status = "Failed";
 
-    $key = 'thisisasecretkey'; // Must be 16 bytes for AES-128
+    $key = substr('thisisasecretkey', 0, 16); // Ensure the key is 16 bytes
     $cipher = 'aes-128-ecb';
 
     if ($action == "Encrypt") {
@@ -216,6 +216,15 @@ Route::get('/cryptography', function (Request $request) {
         if ($temp) {
             $status = 'Encrypted Successfully';
             $result = base64_encode($temp);
+        }
+    } elseif ($action == "Decrypt") {
+        $temp = base64_decode($data); // Decode the base64-encoded string
+        $result = openssl_decrypt($temp, $cipher, $key, OPENSSL_RAW_DATA);
+
+        if ($result) {
+            $status = 'Decrypted Successfully';
+        } else {
+            $status = 'Decryption Failed';
         }
     }
 
