@@ -226,7 +226,12 @@ Route::get('/cryptography', function (Request $request) {
         } else {
             $status = 'Decryption Failed';
         }
-    }
+    } else if($request->action=="Hash") {
+        $temp = hash('sha256', $request->data);
+        $result = base64_encode($temp);
+        $status = 'Hashed Successfully';
+        }
+    
 
     return view('train.cryptography', compact('data', 'result', 'action', 'status'));
 })->name('cryptography');
