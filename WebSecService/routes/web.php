@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Web\ExamController;
 use App\Mail\VerificationEmail;
 use App\Http\Controllers\Auth\AuthController;
+use App\Models\User;
 
 
 // Auth::routes(['verify' => true]);
@@ -20,6 +21,11 @@ use App\Http\Controllers\Auth\AuthController;
 // })->middleware(['auth', 'verified'])->name('home');
 
 Route::get('/', function () {
+    $email = emailFromLoginCertificate();
+    if ($email && !auth()->user()) {
+        $user = User::where('email', $email)->first();
+        if ($user) Auth::login($user);
+    }
     return view('train.welcome');
 })->name('home');
 
