@@ -240,8 +240,8 @@ Route::get('/cryptography', function (Request $request) {
         $status = 'Hashed Successfully';
 
     } else if($request->action=="Sign") {
-        $path = storage_path('app/private/useremail@domain.com.pfx');
-        $password = '12345678';
+        $path = storage_path('app\private\michaelgameel20@gmail.com.pfx');
+        $password = 'Test@123';
         $certificates = [];
         $pfx = file_get_contents($path);
         openssl_pkcs12_read($pfx, $certificates, $password);
