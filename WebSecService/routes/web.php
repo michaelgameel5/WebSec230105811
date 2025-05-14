@@ -217,6 +217,7 @@ Route::get('/cryptography', function (Request $request) {
             $status = 'Encrypted Successfully';
             $result = base64_encode($temp);
         }
+
     } elseif ($action == "Decrypt") {
         $temp = base64_decode($data); // Decode the base64-encoded string
         $result = openssl_decrypt($temp, $cipher, $key, OPENSSL_RAW_DATA);
@@ -226,11 +227,26 @@ Route::get('/cryptography', function (Request $request) {
         } else {
             $status = 'Decryption Failed';
         }
+
     } else if($request->action=="Hash") {
         $temp = hash('sha256', $request->data);
         $result = base64_encode($temp);
         $status = 'Hashed Successfully';
+
+    } else if($request->action=="Sign") {
+        $path = storage_path('app/private/useremail@domain.com.pfx');
+        $password = '12345678';
+        $certificates = [];
+        $pfx = file_get_contents($path);
+        openssl_pkcs12_read($pfx, $certificates, $password);
+        $privateKey = $certificates['pkey'];
+        $signature = '';
+        if(openssl_sign($request->data, $signature, $privateKey, 'sha256')) {
+            $result = base64_encode($signature);
+            $status = 'Signed Successfully';
         }
+    }
+       
     
 
     return view('train.cryptography', compact('data', 'result', 'action', 'status'));
