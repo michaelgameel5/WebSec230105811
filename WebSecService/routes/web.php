@@ -251,7 +251,17 @@ Route::get('/cryptography', function (Request $request) {
             $result = base64_encode($signature);
             $status = 'Signed Successfully';
         }
+    } else if($request->action=="Verify") {
+        $signature = base64_decode($request->result);
+        $path = storage_path('app\public\michaelgameel20@gmail.com.crt');
+        $publicKey = file_get_contents($path);
+        if(openssl_verify($request->data, $signature, $publicKey, 'sha256')) {
+        $status = 'Verified Successfully';
+        }
     }
+
+
+
        
     
 
