@@ -258,7 +258,7 @@ Route::get('/cryptography', function (Request $request) {
         if(openssl_verify($request->data, $signature, $publicKey, 'sha256')) {
         $status = 'Verified Successfully';
         }
-    }
+    } 
 
 
 
