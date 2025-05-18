@@ -70,6 +70,12 @@
             class="btn btn-danger form-control">Delete</a>
             @endcan
         </div>
+            <div class="col col-2">
+            @can('select_favorite')
+            <a href="{{ route('add_favorite', $product->id) }}" 
+            class="btn btn-success form-control">Add to Favorite</a>
+            @endcan
+        </div>
     </div>
 
     <div class="card mt-2">

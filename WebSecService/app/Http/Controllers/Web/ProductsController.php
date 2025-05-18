@@ -92,5 +92,19 @@ class ProductsController extends Controller{
     
             return view('products.list', compact('products'));
         }
+
+
+        public function favorite($id)
+            {
+                if (!auth()->user()->can('select_favorite')) {
+                        abort(403, 'Unauthorized action.');
+                    }
+                $product = Product::findOrFail($id);
+                $product->favorite = true;
+                $product->save();
+
+                return redirect()->back()->with('success', 'Product added to favorites.');
+            }
+
     }    
    

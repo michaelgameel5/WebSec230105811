@@ -131,6 +131,8 @@ Route::get('products/delete/{product}', [ProductsController::class,
     'delete'])->name('products_delete');
 Route::get('/products/search', [ProductsController::class,
     'search'])->name('products_search');
+Route::get('/products/favorite/{id}', [ProductsController::class, 'favorite'])->name('add_favorite');
+
 
 
 Route::get('register', [UsersController::class, 'register'])->name('register');
