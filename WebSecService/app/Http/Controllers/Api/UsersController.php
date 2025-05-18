@@ -20,7 +20,13 @@ class UsersController extends Controller {
         return response()->json(['user'=>$user->getAttributes()]);
 
     }
-    public function users(Request $request) { }
+
+    public function users(Request $request) {
+        $users = User::select('id', 'name', 'email')->get()->toArray();
+        return response()->json(['users'=>$users]);
+
+    }
+    
     public function logout(Request $request) { }
 
 }
